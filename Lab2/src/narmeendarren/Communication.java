@@ -7,8 +7,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -120,7 +118,7 @@ public class Communication {
     }
 
     private static int[] stringToHex(String s) {
-        List<Integer> positions = new LinkedList<Integer>();
+        int[] positions = new int[s.length() * 2];
         for (int i = 0; i < s.length(); i++) {
             String c = s.charAt(i) + "";
             String h = getAsciiTable().get(c);
@@ -132,15 +130,11 @@ public class Communication {
 
             for (int j = 0; j < h.length(); j++) {
                 char ch = h.charAt(j);
-                positions.add(hexToInt(ch));
+                positions[2 * i + j] = hexToInt(ch);
             }
         }
 
-        int[] positionsArray = new int[positions.size()];
-        for (int i = 0; i < positions.size(); i++) {
-            positionsArray[i] = positions.get(i);
-        }
-        return positionsArray;
+        return positions;
     }
 
     public static void moveCamera(int[] positions) {
