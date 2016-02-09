@@ -1,9 +1,9 @@
 package bharatdarren.tightlycoupled;
 
 /**
- * @author Darren, Bharat
- *
  * This class represents the evidence object.
+ *
+ * @author Darren, Bharat
  */
 public class Evidence {
     private String type;
