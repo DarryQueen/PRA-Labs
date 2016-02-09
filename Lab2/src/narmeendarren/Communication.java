@@ -27,9 +27,33 @@ public class Communication {
     private final static String TITLE_SENDING = "Sending...";
 
     private static Dictionary<Integer, JComponent> mLabelMap = null;
+    private static JFrame jfFrame;
     private static JSlider jsCamera;
     private static JTextArea jtaMessage;
     private static JButton jbSend;
+
+    private static ActionListener jbalSend = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    // Change title, clear text:
+                    jfFrame.setTitle(TITLE_SENDING);
+                    String message = jtaMessage.getText();
+                    jtaMessage.setText(null);
+
+                    int[] positions = stringToHex(message);
+                    moveCamera(positions);
+
+                    // Set the title back:
+                    jfFrame.setTitle(TITLE_DEFAULT);
+                }
+            };
+
+            new Thread(r).start();
+        }
+    };
 
     private static Dictionary<String, String> getAsciiTable() {
         if (mHexMap != null) {
@@ -134,44 +158,23 @@ public class Communication {
         getAsciiTable();
 
         // JFrame setup:
-        JFrame myFrame = new JFrame(TITLE_DEFAULT);
-        myFrame.setSize(600, 200);
-        myFrame.setLayout(new BorderLayout());
+        jfFrame = new JFrame(TITLE_DEFAULT);
+        jfFrame.setSize(600, 200);
+        jfFrame.setLayout(new BorderLayout());
 
         jsCamera = new JSlider(0, 15);
         jsCamera.setLabelTable(getLabelMap());
         jsCamera.setPaintLabels(true);
-        myFrame.add(jsCamera, BorderLayout.NORTH);
+        jfFrame.add(jsCamera, BorderLayout.NORTH);
 
         jtaMessage = new JTextArea();
-        myFrame.add(jtaMessage);
+        jfFrame.add(jtaMessage);
 
         jbSend = new JButton("Send");
-        jbSend.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Runnable r = new Runnable() {
-                    @Override
-                    public void run() {
-                        // Change title, clear text:
-                        myFrame.setTitle(TITLE_SENDING);
-                        String message = jtaMessage.getText();
-                        jtaMessage.setText(null);
+        jbSend.addActionListener(jbalSend);
+        jfFrame.add(jbSend, BorderLayout.SOUTH);
 
-                        int[] positions = stringToHex(message);
-                        moveCamera(positions);
-
-                        // Set the title back:
-                        myFrame.setTitle(TITLE_DEFAULT);
-                    }
-                };
-
-                new Thread(r).start();
-            }
-        });
-        myFrame.add(jbSend, BorderLayout.SOUTH);
-
-        myFrame.setVisible(true);
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jfFrame.setVisible(true);
+        jfFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
