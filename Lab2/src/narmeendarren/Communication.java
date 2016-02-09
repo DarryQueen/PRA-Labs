@@ -15,12 +15,21 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 
+/**
+ * This class represents the camera communication GUI from the Martian.
+ *
+ * @author Darren, Narmeen
+ */
 public class Communication {
+    /** Amount of time to sleep between camera rotations, in milliseconds. */
     private final static int SLEEP_TIME = 1000;
+    /** Name of the ASCII table file. */
     private final static String ASCII_FILENAME = "ascii_table.csv";
 
+    /** Store of contents of ASCII table. */
     private static Dictionary<String, String> mHexMap = null;
 
+    /** JFrame title. */
     private final static String TITLE_DEFAULT = "Rover Camera";
     private final static String TITLE_SENDING = "Sending...";
 
@@ -30,6 +39,10 @@ public class Communication {
     private static JTextArea jtaMessage;
     private static JButton jbSend;
 
+    /**
+     * Create the ActionListener for the sending JButton.
+     * Must run any graphics-related updates in a new thread.
+     */
     private static ActionListener jbalSend = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -53,6 +66,10 @@ public class Communication {
         }
     };
 
+    /**
+     * Grabs the ASCII table store. If it is not initialized, do so lazily.
+     * @return Dictionary mapping of character to ASCII hex value, in String format.
+     */
     private static Dictionary<String, String> getAsciiTable() {
         if (mHexMap != null) {
             return mHexMap;
@@ -76,6 +93,10 @@ public class Communication {
         return mHexMap;
     }
 
+    /**
+     * Grabs the label mapping for the camera JSlider. If it is not initialized, do so lazily.
+     * @return Dictionary mapping of int (between 0 and 15 inclusive) to its hex value.
+     */
     private static Dictionary<Integer, JComponent> getLabelMap() {
         if (mLabelMap != null) {
             return mLabelMap;
@@ -95,6 +116,10 @@ public class Communication {
         return mLabelMap;
     }
 
+    /**
+     * @param h char to convert.
+     * @return int representation of h.
+     */
     private static int hexToInt(char h) {
         switch(h) {
             case '0': return 0;
@@ -117,6 +142,11 @@ public class Communication {
         }
     }
 
+    /**
+     * Convert a String to an array of ints representing their hex values.
+     * @param s String to convert.
+     * @return array of ints, coupled together to form the hex value of the chars of the String.
+     */
     private static int[] stringToHex(String s) {
         int[] positions = new int[s.length() * 2];
         for (int i = 0; i < s.length(); i++) {
@@ -137,6 +167,11 @@ public class Communication {
         return positions;
     }
 
+    /**
+     * Move the camera to point to the given positions.
+     * Between each rotation, there is a delay of {@value #SLEEP_TIME} milliseconds.
+     * @param positions array of ints to rotate towards.
+     */
     public static void moveCamera(int[] positions) {
         for (int i : positions) {
             if (i < 16) {
