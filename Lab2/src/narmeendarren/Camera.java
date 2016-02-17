@@ -16,7 +16,8 @@ public class Camera extends JSlider {
     /** Amount of time to sleep between rotations, in milliseconds. */
     private final static int SLEEP_TIME = 1000;
 
-    /** Lazily loaded label map. */
+    /** Lazily loaded label map.
+     * Do not reference this directly - instead, call {@link #getLabelMap()}. */
     private static Dictionary<Integer, JComponent> mLabelMap = null;
 
     /**
@@ -43,7 +44,7 @@ public class Camera extends JSlider {
     }
 
     /**
-     * @param labelMap dictionary of labels for each integer value.
+     * Standard constructor. Abstracted such that it needs no params.
      */
     public Camera() {
         super(0, 15, 0);

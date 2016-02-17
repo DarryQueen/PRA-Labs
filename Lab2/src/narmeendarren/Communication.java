@@ -28,14 +28,17 @@ public class Communication {
     private final static String TITLE_DEFAULT = "Rover Camera";
     private final static String TITLE_SENDING = "Sending...";
 
-    private static JFrame jfFrame;
+    /** Camera component. Abstracted to represent the camera GUI. */
     private static Camera jcCamera;
+
+    /** Other GUI components. */
+    private static JFrame jfFrame;
     private static JTextArea jtaMessage;
     private static JButton jbSend;
 
     /**
      * Create the ActionListener for the sending JButton.
-     * Must run any graphics-related updates in a new thread.
+     * Note: must run any graphics-related updates in a new thread.
      */
     private static ActionListener jbalSend = new ActionListener() {
         @Override
@@ -88,6 +91,7 @@ public class Communication {
     }
 
     /**
+     * Would normally do this using a hash, but Java type system is too rigid.
      * @param h char to convert.
      * @return int representation of h.
      */
