@@ -14,7 +14,7 @@ import javax.swing.JSlider;
  */
 public class Camera extends JSlider {
     /** Amount of time to sleep between rotations, in milliseconds. */
-    private final static int SLEEP_TIME = 1000;
+    public final static int SLEEP_TIME = 1000;
 
     /** Lazily loaded label map.
      * Do not reference this directly - instead, call {@link #getLabelMap()}. */
