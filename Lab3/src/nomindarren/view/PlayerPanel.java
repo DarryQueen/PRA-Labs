@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -18,8 +17,7 @@ public class PlayerPanel extends JPanel {
     private int id;
 
     private JTextField jtfName;
-    private JLabel jlImage;
-    private JButton jbAddImage;
+    private JButton jbImage;
     private ActionListener alListener;
 
     public PlayerPanel(String n, int i, String p, ActionListener al) {
@@ -31,15 +29,17 @@ public class PlayerPanel extends JPanel {
         jtfName = new JTextField(n);
         jtfName.addActionListener(this.alListener);
         jtfName.setName(NAME_CHANGE + " " + this.id);
+
+        jbImage = new JButton();
+        jbImage.setName(IMAGE_CHANGE + " " + this.id);
+        jbImage.addActionListener(this.alListener);
         if (p == Controller.NULL_PATH) {
-            jbAddImage = new JButton("+");
-            jbAddImage.setName(this.id + "");
-            this.add(jbAddImage);
+            jbImage.setText("+");
         } else {
-            jlImage = new JLabel(new ImageIcon(p));
-            jlImage.setName(this.id + "");
-            this.add(jlImage);
+            jbImage.setIcon(new ImageIcon(p));
         }
+
+        this.add(jbImage);
         this.add(jtfName);
     }
 
@@ -47,11 +47,8 @@ public class PlayerPanel extends JPanel {
         jtfName.setText(n);
     }
     public void setPlayerPath(String p) {
-        removeAll();
-        jlImage.setIcon(new ImageIcon(p));
-
-        this.add(jlImage);
-        this.add(jtfName);
+        jbImage.setIcon(new ImageIcon(p));
+        jbImage.setText(null);
         repaint(); revalidate();
     }
 }

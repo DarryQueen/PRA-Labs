@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -18,6 +19,8 @@ public class Controller implements ActionListener {
 
     private Squad squad;
     private Fantasy fantasy;
+
+    private final JFileChooser fc = new JFileChooser();
 
     public Controller() {
         squad = new Squad();
@@ -64,7 +67,17 @@ public class Controller implements ActionListener {
     }
 
     private void updateName(int id, String name) {
-        squad.getPlayerById(id).setName(name);
+        Player player = squad.getPlayerById(id);
+        player.setName(name);
+
+        fantasy.updatePlayer(player.getName(), player.getId(), player.getPath());
+    }
+
+    private void updatePath(int id, String path) {
+        Player player = squad.getPlayerById(id);
+        player.setPath(path);
+
+        fantasy.updatePlayer(player.getName(), player.getId(), player.getPath());
     }
 
     @Override
@@ -86,6 +99,17 @@ public class Controller implements ActionListener {
             String name = textfield.getText();
 
             updateName(id, name);
+            return;
+        }
+
+        if (names[0].equals(PlayerPanel.IMAGE_CHANGE)) {
+            int id = Integer.parseInt(names[1]);
+            int result = fc.showOpenDialog(null);
+
+            if (result != JFileChooser.APPROVE_OPTION) {
+                return;
+            }
+            updatePath(id, fc.getSelectedFile().getAbsolutePath());
             return;
         }
     }
