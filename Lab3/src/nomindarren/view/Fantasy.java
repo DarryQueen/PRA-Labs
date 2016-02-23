@@ -39,6 +39,15 @@ public class Fantasy extends JFrame {
         // Create dropdown:
         Formation[] formations = getFormations();
         jcbFormationDropdown = new JComboBox<Formation>(formations);
+        // Hack to set initial selection:
+        jcbFormationDropdown.setEditable(true);
+        jcbFormationDropdown.setSelectedItem(new Formation() {
+            @Override
+            public String toString() {
+                return "Select a formation:";
+            }
+        });
+        jcbFormationDropdown.setEditable(false);
         jcbFormationDropdown.addActionListener(this.controller);
         jcbFormationDropdown.setName(DROPDOWN_NAME);
         this.add(jcbFormationDropdown, BorderLayout.NORTH);
