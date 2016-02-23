@@ -2,6 +2,11 @@ package nomindarren.model;
 
 import nomindarren.controller.Controller;
 
+/**
+ * This class represents the fantasy football player model.
+ *
+ * @author Darren, Nomin
+ */
 public class Player {
     private static int numPlayers = 0;
 
@@ -9,6 +14,9 @@ public class Player {
     private int id;
     private String path = Controller.NULL_PATH;
 
+    /**
+     * Create a player with incremental ID.
+     */
     public Player() {
         this.id = numPlayers;
 

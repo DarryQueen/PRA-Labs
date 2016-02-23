@@ -14,7 +14,13 @@ import nomindarren.model.Squad;
 import nomindarren.view.Fantasy;
 import nomindarren.view.PlayerPanel;
 
+/**
+ * This class represents the fantasy football controller interface.
+ *
+ * @author Darren, Nomin
+ */
 public class Controller implements ActionListener {
+    /** A standard representation of a nonexistent image. */
     public static final String NULL_PATH = "None";
 
     private Squad squad;
@@ -22,6 +28,9 @@ public class Controller implements ActionListener {
 
     private final JFileChooser fc = new JFileChooser();
 
+    /**
+     * Create the controller and the respective view and model.
+     */
     public Controller() {
         squad = new Squad();
         fantasy = new Fantasy(this);
@@ -80,6 +89,10 @@ public class Controller implements ActionListener {
         fantasy.updatePlayer(player.getName(), player.getId(), player.getPath());
     }
 
+    /**
+     * Our event handler. We get the name of the component, which we deem to be "ACTION PLAYER_ID".
+     * Respond accordingly.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Component component = (Component) e.getSource();

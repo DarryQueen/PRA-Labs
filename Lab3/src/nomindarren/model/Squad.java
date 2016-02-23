@@ -3,7 +3,13 @@ package nomindarren.model;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+/**
+ * This class represents the fantasy football team model.
+ *
+ * @author Darren, Nomin
+ */
 public class Squad {
+    /** The total number of each position on the team. */
     public static final int NUM_GOALKEEPERS = 2;
     public static final int NUM_DEFENDERS = 5;
     public static final int NUM_MIDFIELDERS = 5;
@@ -15,6 +21,9 @@ public class Squad {
     private Striker[] strikers;
     private Dictionary<Integer, Player> players;
 
+    /**
+     * Constructs this squad and initializes all the team members.
+     */
     public Squad() {
         this.goalkeepers = new Goalkeeper[NUM_GOALKEEPERS];
         this.defenders = new Defender[NUM_DEFENDERS];
@@ -52,6 +61,11 @@ public class Squad {
     public Player[] getStrikers() {
         return this.strikers;
     }
+    /**
+     * Grab a player by his ID.
+     * @param id ID of the player.
+     * @return Player object represented by the given ID.
+     */
     public Player getPlayerById(int id) {
         return this.players.get(id);
     }

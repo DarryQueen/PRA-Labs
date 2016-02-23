@@ -11,8 +11,15 @@ import javax.swing.JPanel;
 
 import nomindarren.controller.Controller;
 
+/**
+ * This class represents the fantasy football view GUI.
+ *
+ * @author Darren, Nomin
+ */
 public class Fantasy extends JFrame {
+    /** Behind-the-scenes arbitrary name for dropdown action. */
     public static final String DROPDOWN_NAME = "dropdown";
+    /** Possible positions. */
     public enum Position {
         GOALKEEPER, DEFENDER, MIDFIELDER, STRIKER, BENCH
     }
@@ -28,6 +35,10 @@ public class Fantasy extends JFrame {
     private JPanel jpGoalkeeperPanel, jpDefenderPanel, jpMidfielderPanel, jpStrikerPanel;
     private JPanel jpBenchPanel;
 
+    /**
+     * Creates this Fantasy, which is a JFrame.
+     * @param c the ActionListener to register our events.
+     */
     public Fantasy(Controller c) {
         super("Fantasy Football");
         this.controller = c;
@@ -66,6 +77,10 @@ public class Fantasy extends JFrame {
         this.add(jpBenchPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * A convenient method to get the available formations.
+     * @return Array of possible Formations.
+     */
     public static Formation[] getFormations() {
         Formation[] f = new Formation[6];
         for (int i = 0; i < FORMATIONS.length; i++) {
@@ -75,6 +90,13 @@ public class Fantasy extends JFrame {
         return f;
     }
 
+    /**
+     * Add a player onto the GUI.
+     * @param name name of the player.
+     * @param id ID of the player.
+     * @param path path of the player's mugshot.
+     * @param position where to add player on the map.
+     */
     public void addPlayer(String name, int id, String path, Position position) {
         PlayerPanel newPanel = new PlayerPanel(name, id, path, this.controller);
         playerPanels.put(id, newPanel);
@@ -100,12 +122,21 @@ public class Fantasy extends JFrame {
         repaint(); revalidate();
     }
 
+    /**
+     * Given an ID, update the player on the GUI.
+     * @param name name of the player.
+     * @param id ID of the player.
+     * @param path path of the player's mugshot.
+     */
     public void updatePlayer(String name, int id, String path) {
         PlayerPanel playerPanel = playerPanels.get(id);
         playerPanel.setPlayerName(name);
         playerPanel.setPlayerPath(path);
     }
 
+    /**
+     * Remove all the players from the GUI.
+     */
     public void clearPlayers() {
         jpGoalkeeperPanel.removeAll();
         jpDefenderPanel.removeAll();
@@ -115,6 +146,11 @@ public class Fantasy extends JFrame {
         repaint(); revalidate();
     }
 
+    /**
+     * A convenient representation of a formation, as opposed to the magic array of three integers.
+     *
+     * @author Darren, Nomin
+     */
     public static class Formation {
         public int[] formation;
 
