@@ -1,6 +1,6 @@
 package nomindarren.view;
 
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
@@ -24,7 +24,7 @@ public class PlayerPanel extends JPanel {
         super();
         this.id = i;
         this.alListener = al;
-        setLayout(new GridLayout(0, 1));
+        setLayout(new BorderLayout());
 
         jtfName = new JTextField(n);
         jtfName.addActionListener(this.alListener);
@@ -39,8 +39,8 @@ public class PlayerPanel extends JPanel {
             jbImage.setIcon(new ImageIcon(p));
         }
 
-        this.add(jbImage);
-        this.add(jtfName);
+        this.add(jbImage, BorderLayout.CENTER);
+        this.add(jtfName, BorderLayout.SOUTH);
     }
 
     public void setPlayerName(String n) {
