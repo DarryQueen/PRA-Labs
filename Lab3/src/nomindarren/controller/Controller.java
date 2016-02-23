@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import nomindarren.model.Player;
 import nomindarren.model.Squad;
 import nomindarren.view.Fantasy;
+import nomindarren.view.PlayerPanel;
 
 public class Controller implements ActionListener {
     public static final String NULL_PATH = "None";
@@ -61,13 +63,29 @@ public class Controller implements ActionListener {
         }
     }
 
+    private void updateName(int id, String name) {
+        squad.getPlayerById(id).setName(name);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Component component = (Component) e.getSource();
         if (component.getName() == Fantasy.DROPDOWN_NAME) {
             JComboBox<Fantasy.Formation> dropdown = (JComboBox<Fantasy.Formation>) component;
             Fantasy.Formation formation = (Fantasy.Formation) dropdown.getSelectedItem();
+
             setupFormation(formation);
+            return;
+        }
+
+        String[] names = component.getName().split(" ");
+
+        if (names[0].equals(PlayerPanel.NAME_CHANGE)) {
+            int id = Integer.parseInt(names[1]);
+            JTextField textfield = (JTextField) component;
+            String name = textfield.getText();
+
+            updateName(id, name);
             return;
         }
     }
