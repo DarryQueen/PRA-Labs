@@ -20,7 +20,8 @@ public class PlayerPanel extends JPanel {
 
     public PlayerPanel(String n, int i, String p, ActionListener al) {
         super();
-        alListener = al;
+        this.id = i;
+        this.alListener = al;
         setLayout(new GridLayout(0, 1));
 
         jlName = new JLabel(n);
@@ -34,7 +35,6 @@ public class PlayerPanel extends JPanel {
             this.add(jlImage);
         }
         this.add(jlName);
-        this.id = i;
     }
 
     public void setPlayerName(String n) {
