@@ -47,11 +47,7 @@ public class PlayerPanel extends JPanel {
         jbImage = new JButton();
         jbImage.setName(IMAGE_CHANGE + " " + this.id);
         jbImage.addActionListener(this.alListener);
-        if (p == Controller.NULL_PATH) {
-            jbImage.setText("+");
-        } else {
-            jbImage.setIcon(new ImageIcon(p));
-        }
+        setPlayerPath(p);
 
         this.add(jbImage, BorderLayout.CENTER);
         this.add(jtfName, BorderLayout.SOUTH);
@@ -69,8 +65,12 @@ public class PlayerPanel extends JPanel {
      * @param p path of the player's mugshot.
      */
     public void setPlayerPath(String p) {
-        jbImage.setIcon(new ImageIcon(p));
-        jbImage.setText(null);
+        if (p == Controller.NULL_PATH) {
+            jbImage.setText("+");
+        } else {
+            jbImage.setIcon(new ImageIcon(p));
+            jbImage.setText(null);
+        }
         repaint(); revalidate();
     }
 }
