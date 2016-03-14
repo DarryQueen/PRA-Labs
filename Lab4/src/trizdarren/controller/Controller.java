@@ -5,36 +5,61 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import generator.Media;
-import generator.MediaGenerator;
+import javax.swing.JLabel;
+
+import trizdarren.model.Library;
 import trizdarren.model.MediaItem;
-import trizdarren.view.Library;
+import trizdarren.model.Movie;
+import trizdarren.model.Music;
+import trizdarren.model.Unknown;
+import trizdarren.view.LibraryPane;
+import trizdarren.view.MediaPane;
 
 public class Controller implements ActionListener {
-    private List<MediaItem> movieList, musicList, otherList;
     private Library library;
+    private LibraryPane libraryPane;
 
-    public Controller() {
-        movieList = new LinkedList<MediaItem>();
-        musicList = new LinkedList<MediaItem>();
-        otherList = new LinkedList<MediaItem>();
+    private List<MediaPane.Item> getPaneList(List<MediaItem> items) {
+        List<MediaPane.Item> paneList = new LinkedList<MediaPane.Item>();
+        for (MediaItem item : items) {
+            String bt = null, it = null;
+            JLabel i = null;
 
-        for (Media m : MediaGenerator.getMedia()) {
-            MediaItem item = MediaItem.createMediaItem(m);
             switch (item.getType()) {
             case MOVIE:
-                movieList.add(item);
+                Movie movie = (Movie) item;
+                bt = movie.getName();
+                it = movie.getYear() + " - " + movie.getQuality();
+                i = movie.getImage();
                 break;
             case MUSIC:
-                musicList.add(item);
+                Music music = (Music) item;
+                bt = music.getName();
+                it = music.getArtist();
+                i = music.getImage();
                 break;
             case UNKNOWN:
-                otherList.add(item);
+                Unknown unknown = (Unknown) item;
+                bt = unknown.getName();
+                it = MediaPane.DEFAULT_INFOTEXT;
+                i = unknown.getImage();
                 break;
             }
-        }
 
-        library = new Library(this);
+            paneList.add(new MediaPane.Item(bt, it, i));
+        }
+        return paneList;
+    }
+
+    public Controller() {
+        library = new Library();
+
+        libraryPane = new LibraryPane(this);
+        libraryPane.setMovies(getPaneList(library.getMovies()));
+        libraryPane.setMusic(getPaneList(library.getMusic()));
+        libraryPane.setOther(getPaneList(library.getUnknown()));
+
+        libraryPane.setVisible(true);
     }
 
     @Override
@@ -42,11 +67,6 @@ public class Controller implements ActionListener {
     }
 
     public static void main(String[] args) {
-        // Controller c = new Controller();
-
-        for (Media m : MediaGenerator.getMedia()) {
-            MediaItem mi = MediaItem.createMediaItem(m);
-            // if (mi != null) System.out.println(mi.getInfoText());
-        }
+        Controller c = new Controller();
     }
 }

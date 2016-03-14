@@ -30,8 +30,10 @@ public abstract class MediaItem {
 
     protected String getFilename(Media m) {
         Matcher filenameMatcher = Pattern.compile(FILENAME_PATTERN).matcher(m.getName());
-        filenameMatcher.find();
-        return filenameMatcher.group(1);
+        if (filenameMatcher.find()) {
+            return filenameMatcher.group(1);
+        }
+        return m.getName();
     }
 
     public static MediaItem createMediaItem(Media m) {
