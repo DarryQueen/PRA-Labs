@@ -9,10 +9,11 @@ public class Movie extends MediaItem {
     private static final String NAME_PATTERN = "(?:\\) (.*?) \\()|(?:^([^\\(]*) \\()|(?:\\) ([^\\)]*)$)";
     private static final String PAREN_PATTERN = "\\((.*?)\\)";
     private static final String YEAR_PATTERN = "^\\d{4}$";
-    private static final String QUALITY_PATTERN = "([^,]*)";
+    private static final String QUALITY_PATTERN = "([A-Z][A-Z]), ([0-9]*)p";
 
     private String name;
-    private String year, quality;
+    private String quality;
+    private int year, pixels;
 
     private void setAttributes(String filename) {
         // Grab movie name.
@@ -36,9 +37,10 @@ public class Movie extends MediaItem {
             Matcher yearMatcher = Pattern.compile(YEAR_PATTERN).matcher(content);
             Matcher qualityMatcher = Pattern.compile(QUALITY_PATTERN).matcher(content);
             if (yearMatcher.find()) {
-                year = content;
+                year = Integer.parseInt(content);
             } else if (qualityMatcher.find()) {
                 quality = qualityMatcher.group(1);
+                pixels = Integer.parseInt(qualityMatcher.group(2));
             }
         }
     }
@@ -59,11 +61,15 @@ public class Movie extends MediaItem {
         return name;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
     public String getQuality() {
         return quality;
+    }
+
+    public int getPixels() {
+        return pixels;
     }
 }
