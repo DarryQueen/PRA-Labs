@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class LibraryPane extends JFrame {
+    public static final String MOVIE_DROPDOWN_NAME = "Movie";
+    public static final String MUSIC_DROPDOWN_NAME = "Music";
+
     public static final String SORT_TITLE = "Title";
     public static final String SORT_YEAR = "Release Year";
     public static final String SORT_QUALITY = "Quality";
@@ -64,7 +67,11 @@ public class LibraryPane extends JFrame {
         jpOtherPanel = new JPanel();
 
         jcbMovieSort = new JComboBox<String>(movieSortOptions);
+        jcbMovieSort.setName(MOVIE_DROPDOWN_NAME);
+        jcbMovieSort.addActionListener(al);
         jcbMusicSort = new JComboBox<String>(musicSortOptions);
+        jcbMusicSort.setName(MUSIC_DROPDOWN_NAME);
+        jcbMusicSort.addActionListener(al);
 
         setUI();
     }
@@ -73,14 +80,27 @@ public class LibraryPane extends JFrame {
         for (MediaPane.Item item : itemList) {
             pane.add(MediaPane.paneFromItem(item));
         }
+        repaint(); revalidate();
     }
     public void setMovies(List<MediaPane.Item> movieList) {
         setPane(jpMoviePanel, movieList);
     }
+    public void clearMovies() {
+        jpMoviePanel.removeAll();
+        repaint(); revalidate();
+    }
     public void setMusic(List<MediaPane.Item> musicList) {
         setPane(jpMusicPanel, musicList);
     }
+    public void clearMusic() {
+        jpMusicPanel.removeAll();
+        repaint(); revalidate();
+    }
     public void setOther(List<MediaPane.Item> otherList) {
         setPane(jpOtherPanel, otherList);
+    }
+    public void clearOther() {
+        jpOtherPanel.removeAll();
+        repaint(); revalidate();
     }
 }

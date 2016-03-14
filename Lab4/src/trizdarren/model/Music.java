@@ -37,4 +37,10 @@ public class Music extends MediaItem {
     public String getArtist() {
         return artist;
     }
+
+    public String getSortArtist() {
+        Matcher matcher = Pattern.compile(SORTNAME_PATTERN).matcher(artist);
+        matcher.find();
+        return matcher.group(1);
+    }
 }

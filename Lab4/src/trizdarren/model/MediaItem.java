@@ -12,6 +12,8 @@ public abstract class MediaItem {
     private static final String MOVIE_PATTERN = "\\.(flv|gif|mkv|mpeg|mpg|mov)$";
     private static final String MUSIC_PATTERN = "\\.(aiff|aac|aax|oog|wav|wma)$";
 
+    protected static final String SORTNAME_PATTERN = "^(?:The )?(.*?)$";
+
     public enum Type {
         MOVIE, MUSIC, UNKNOWN
     }
@@ -24,6 +26,11 @@ public abstract class MediaItem {
 
     public abstract Type getType();
     public abstract String getName();
+    public String getSortName() {
+        Matcher matcher = Pattern.compile(SORTNAME_PATTERN).matcher(getName());
+        matcher.find();
+        return matcher.group(1);
+    }
     public JLabel getImage() {
         return image;
     }
