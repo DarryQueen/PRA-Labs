@@ -67,9 +67,18 @@ public class LibraryPane extends JFrame {
         jpOtherPanel = new JPanel();
 
         jcbMovieSort = new JComboBox<String>(movieSortOptions);
+        jcbMusicSort = new JComboBox<String>(musicSortOptions);
+
+        // Hack to set initial selections:
+        jcbMovieSort.setEditable(true);
+        jcbMusicSort.setEditable(true);
+        jcbMovieSort.setSelectedItem("Sort");
+        jcbMusicSort.setSelectedItem("Sort");
+        jcbMovieSort.setEditable(false);
+        jcbMusicSort.setEditable(false);
+
         jcbMovieSort.setName(MOVIE_DROPDOWN_NAME);
         jcbMovieSort.addActionListener(al);
-        jcbMusicSort = new JComboBox<String>(musicSortOptions);
         jcbMusicSort.setName(MUSIC_DROPDOWN_NAME);
         jcbMusicSort.addActionListener(al);
 
