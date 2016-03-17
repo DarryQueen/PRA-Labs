@@ -34,10 +34,18 @@ public class Music extends MediaItem {
         return name;
     }
 
+    /**
+     * This is a getter method for the artist of the track.
+     * @return String name of artist.
+     */
     public String getArtist() {
         return artist;
     }
 
+    /**
+     * Grabs the sort artist name of the MediaItem. Removes a trailing "The " if it exists.
+     * @return String sort artist's name.
+     */
     public String getSortArtist() {
         Matcher matcher = Pattern.compile(SORTNAME_PATTERN).matcher(artist);
         matcher.find();

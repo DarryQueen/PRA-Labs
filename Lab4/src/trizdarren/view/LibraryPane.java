@@ -56,6 +56,10 @@ public class LibraryPane extends JFrame {
         this.add(bottomPanel);
     }
 
+    /**
+     * Constructs the main JFrame.
+     * @param al ActionListener to assign to interactive elements.
+     */
     public LibraryPane(ActionListener al) {
         super("Media Library");
 
@@ -91,6 +95,7 @@ public class LibraryPane extends JFrame {
         }
         repaint(); revalidate();
     }
+
     public void setMovies(List<MediaPane.Item> movieList) {
         setPane(jpMoviePanel, movieList);
     }

@@ -23,6 +23,12 @@ public class Controller implements ActionListener {
     private Library library;
     private LibraryPane libraryPane;
 
+    /**
+     * Construct a list of MediaPane.Item objects from the list of MediaItem.
+     * The purpose of this method is to translate model objects to subviews.
+     * @param items List of MediaItem objects to translate.
+     * @return List of MediaPane.Item objects corresponding to given MediaItem objects.
+     */
     private List<MediaPane.Item> getPaneList(List<MediaItem> items) {
         List<MediaPane.Item> paneList = new LinkedList<MediaPane.Item>();
         for (MediaItem item : items) {
@@ -55,6 +61,9 @@ public class Controller implements ActionListener {
         return paneList;
     }
 
+    /**
+     * Standard constructor. Starts up the program; make sure to construct in main.
+     */
     public Controller() {
         library = new Library();
 

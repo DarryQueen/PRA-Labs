@@ -15,6 +15,12 @@ public class MediaPane extends JPanel {
     private JLabel jlInfoText;
     private JLabel jlImage;
 
+    /**
+     * Constructs a single JPanel for the media item in context.
+     * @param bt String bolded text to display.
+     * @param it String subtext underneath bolded text to display.
+     * @param i JLabel image representing the item.
+     */
     public MediaPane(String bt, String it, JLabel i) {
         super();
         this.setLayout(new BorderLayout());
@@ -31,10 +37,18 @@ public class MediaPane extends JPanel {
         this.add(jlInfoText, BorderLayout.SOUTH);
     }
 
+    /**
+     * Construct a MediaPane from the given Item.
+     * @param item Item representing contents of media.
+     * @return MediaPane to display.
+     */
     public static MediaPane paneFromItem(Item item) {
         return new MediaPane(item.boldText, item.infoText, item.image);
     }
 
+    /**
+     * Class representing contents of an item in the MediaPane.
+     */
     public static class Item {
         public String boldText, infoText;
         public JLabel image;

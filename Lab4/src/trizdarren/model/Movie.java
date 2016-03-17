@@ -61,14 +61,26 @@ public class Movie extends MediaItem {
         return name;
     }
 
+    /**
+     * This is a getter method for the release year of the movie.
+     * @return int form of release year.
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * This is a getter method for the quality of the movie.
+     * @return String quality.
+     */
     public String getQuality() {
         return quality;
     }
 
+    /**
+     * This is a getter method for the pixel quality of the movie.
+     * @return int pixel number.
+     */
     public int getPixels() {
         return pixels;
     }

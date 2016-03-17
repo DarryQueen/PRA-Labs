@@ -26,15 +26,30 @@ public abstract class MediaItem {
 
     public abstract Type getType();
     public abstract String getName();
+
+    /**
+     * Grabs the sort name of the MediaItem. Removes a trailing "The " if it exists.
+     * @return String sort name.
+     */
     public String getSortName() {
         Matcher matcher = Pattern.compile(SORTNAME_PATTERN).matcher(getName());
         matcher.find();
         return matcher.group(1);
     }
+
+    /**
+     * This is a getter method for the JLabel image.
+     * @return JLabel image representation.
+     */
     public JLabel getImage() {
         return image;
     }
 
+    /**
+     * Grabs the name of the file sans extension.
+     * @param m Media to inspect.
+     * @return String name of file.
+     */
     protected String getFilename(Media m) {
         Matcher filenameMatcher = Pattern.compile(FILENAME_PATTERN).matcher(m.getName());
         if (filenameMatcher.find()) {
@@ -43,6 +58,11 @@ public abstract class MediaItem {
         return m.getName();
     }
 
+    /**
+     * Creates a MediaItem model from the generated Media.
+     * @param m Media from which to create model.
+     * @return Instance of corresponding subclass MediaItem model.
+     */
     public static MediaItem createMediaItem(Media m) {
         Matcher movieMatcher = Pattern.compile(MOVIE_PATTERN).matcher(m.getName());
         Matcher musicMatcher = Pattern.compile(MUSIC_PATTERN).matcher(m.getName());

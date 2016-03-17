@@ -30,12 +30,26 @@ public class Library {
         }
     }
 
+    /**
+     * This is a getter method for the list of movies.
+     * @return List of movies.
+     */
     public List<MediaItem> getMovies() {
         return movieList;
     }
+
+    /**
+     * This is a getter method for the list of music.
+     * @return List of music.
+     */
     public List<MediaItem> getMusic() {
         return musicList;
     }
+
+    /**
+     * This is a getter method for the list of unknown MediaItem.
+     * @return List of unknown.
+     */
     public List<MediaItem> getUnknown() {
         return unknownList;
     }
